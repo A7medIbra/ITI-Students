@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { students } from '../../assets/data/students';
 import { Student } from '../../models/student';
+import { HttpClient } from '@angular/common/http';
+import { Department } from '../../models/department';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,7 @@ export class StudentService {
   private students: Student[] = students;
   constructor() {}
 
-  getAll(): Student[] {
+  getAll(): Student[] { 
     return this.students;
   }
 

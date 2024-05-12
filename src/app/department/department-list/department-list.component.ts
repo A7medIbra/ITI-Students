@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Department } from '../../../models/department';
 import { DepartmentService } from '../../Services/department.service';
 import { DepartmentAddComponent } from '../department-add/department-add.component';
@@ -16,26 +16,27 @@ import { DepartmentDetailsComponent } from './../department-details/department-d
   templateUrl: './department-list.component.html',
   styleUrl: './department-list.component.css',
 })
-export class DepartmentListComponent {
+export class DepartmentListComponent implements OnInit {
   departments: Department[] = [];
   department: Department | undefined;
   updatedDepartment!: Department;
   deleteDepartmentIndex: number = -1;
 
-  constructor(private departmentService: DepartmentService) {
+  constructor(private departmentService: DepartmentService) {}
+  ngOnInit() {
     this.departments = this.departmentService.getAll();
   }
+
   showDetails(id: number) {
     const dept = this.departmentService.getById(id);
-    this.department = this.department === dept? undefined : dept;
-  }
-  
-  openUpdateModal(dept: Department){
-    this.updatedDepartment = {...dept };
+    this.department = this.department === dept ? undefined : dept;
   }
 
-  delete(index: number){
+  openUpdateModal(dept: Department) {
+    this.updatedDepartment = { ...dept };
+  }
+
+  delete(index: number) {
     this.departmentService.delete(index);
   }
-  
 }

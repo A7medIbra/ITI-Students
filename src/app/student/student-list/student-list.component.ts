@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Student } from '../../../models/student';
 import { StudentService } from '../../Services/student.service';
 import { StudentAddComponent } from '../student-add/student-add.component';
@@ -16,14 +16,16 @@ import { StudentUpdateComponent } from '../student-update/student-update.compone
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css',
 })
-export class StudentListComponent {
-  students: Student[];
+export class StudentListComponent implements OnInit {
+  students!: Student[];
   student: Student | undefined;
   updatedStudent!: Student;
   deleteStudentIndex: number = -1;
 
-  constructor(private studentService: StudentService) {
-    this.students = studentService.getAll();
+  constructor(private studentService: StudentService) {}
+
+  ngOnInit() {
+    this.students = this.studentService.getAll();
   }
 
   showDetails(id: number) {
